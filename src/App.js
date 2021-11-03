@@ -4,6 +4,7 @@ import "./App.css";
 import HomePage from "./views/HomePage";
 import { Switch, Route } from "react-router-dom";
 import Movies from "./views/Movies";
+import MovieDetailsPage from "./views/MovieDetailsPage";
 
 export default function App() {
   return (
@@ -15,6 +16,9 @@ export default function App() {
         </Route>
         <Route path="/movies" exact>
           <Movies />
+        </Route>
+        <Route path="/movies/:movieId">
+          <MovieDetailsPage />
         </Route>
         <Route>
           <HomePage />
