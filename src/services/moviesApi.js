@@ -9,12 +9,20 @@ async function fetchWithErrorHandling(url = "", config = {}) {
 
 export function fetchTrending() {
   return fetchWithErrorHandling(
-    `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`
+    `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
   );
 }
 
-export function fetchBooks() {
-  return fetchWithErrorHandling(`${API_KEY}/books`);
+export function fetchCast(movieId) {
+  return fetchWithErrorHandling(
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`
+  );
+}
+
+export function fetchReviews(movieId) {
+  return fetchWithErrorHandling(
+    `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${API_KEY}`
+  );
 }
 
 export function fetchMovieById(movieId) {
