@@ -1,10 +1,10 @@
 import { useState } from "react";
 import s from "./Searchbar.module.scss";
-// import { ImSearch } from "react-icons/im";
+
 import PropTypes from "prop-types";
 
 export default function Searchbar({ onSubmit }) {
-  const [imageName, setImageName] = useState("");
+  const [movieName, setImageName] = useState("");
 
   const handleNameChange = (event) => {
     setImageName(event.target.value.toLowerCase());
@@ -13,12 +13,12 @@ export default function Searchbar({ onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (imageName.trim() === "") {
+    if (movieName.trim() === "") {
       alert("Enter text.");
       return;
     }
 
-    onSubmit(imageName);
+    onSubmit(movieName);
     setImageName("");
   };
 
@@ -29,7 +29,7 @@ export default function Searchbar({ onSubmit }) {
           className={s.searchFormInput}
           type="text"
           name="imageName"
-          value={imageName}
+          value={movieName}
           onChange={handleNameChange}
           autoComplete="off"
           autoFocus

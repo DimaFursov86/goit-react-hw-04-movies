@@ -7,15 +7,21 @@ async function fetchWithErrorHandling(url = "", config = {}) {
     : Promise.reject(new Error("Not found"));
 }
 
-export function fetchTrending() {
+export function fetchTrending(page) {
   return fetchWithErrorHandling(
-    `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
+    `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}&page=${page}`
   );
 }
 
 export function fetchCast(movieId) {
   return fetchWithErrorHandling(
     `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${API_KEY}`
+  );
+}
+
+export function fetchQuery(searchQuery, page) {
+  return fetchWithErrorHandling(
+    `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${searchQuery}&page=${page}`
   );
 }
 

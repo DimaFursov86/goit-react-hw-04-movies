@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import PropTypes from "prop-types";
 import * as moviesApi from "../services/moviesApi";
 import s from "./Cast.module.scss";
 
@@ -7,7 +7,13 @@ export default function Cast({ movieId }) {
   const [cast, setCast] = useState(null);
 
   useEffect(() => {
-    moviesApi.fetchCast(movieId).then(setCast);
+    moviesApi.fetchCast(movieId).then((casts) => {
+      setCast(casts);
+      window.scrollTo({
+        top: 1000,
+        behavior: "smooth",
+      });
+    });
   }, [movieId]);
 
   return (
@@ -40,3 +46,6 @@ export default function Cast({ movieId }) {
     </>
   );
 }
+Cast.propTypes = {
+  movieId: PropTypes.string.isRequired,
+};
