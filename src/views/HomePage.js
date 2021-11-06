@@ -35,7 +35,7 @@ export default function HomePage() {
         setStatus(Status.RESOLVED);
         if (page !== 1) {
           window.scrollTo({
-            top: document.documentElement.scrollHeight,
+            top: document.documentElement.scrollHeight - 3200,
             behavior: "smooth",
           });
         }

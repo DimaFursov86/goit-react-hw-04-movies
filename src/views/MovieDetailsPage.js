@@ -1,14 +1,29 @@
 import { useState, useEffect } from "react";
-import { useParams, NavLink, Route, useRouteMatch } from "react-router-dom";
+import {
+  useParams,
+  NavLink,
+  Route,
+  useRouteMatch,
+  useLocation,
+  Link,
+} from "react-router-dom";
 import * as moviesApi from "../services/moviesApi";
-import Cast from "./Cast";
-import Reviews from "./Reviews";
 import s from "../views/MovieDetailsPage.module.scss";
+import { lazy, Suspense } from "react";
+import Loader from "../components/Loader/Loader";
+import GoBack from "../components/GoBack/GoBack";
+
+const Cast = lazy(() => import("./Cast" /* webpackChunkName: "Cast" */));
+
+const Reviews = lazy(() =>
+  import("./Reviews" /* webpackChunkName: "Reviews" */)
+);
 
 export default function MovieDetailsPage() {
   const { url, path } = useRouteMatch();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     moviesApi.fetchMovieById(movieId).then(setMovie);
@@ -18,6 +33,10 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <>
+          <Link to={location?.state?.from || ""}>
+            <GoBack />
+          </Link>
+
           <div>
             {" "}
             <h2>{movie.title}</h2>
@@ -82,13 +101,14 @@ export default function MovieDetailsPage() {
             Reviews
           </NavLink>
           <hr />
-
-          <Route path={`${path}/cast`}>
-            {movie && <Cast movieId={movieId} />}
-          </Route>
-          <Route path={`${path}/reviews`}>
-            {movie && <Reviews movieId={movieId} />}
-          </Route>
+          <Suspense fallback={<Loader />}>
+            <Route path={`${path}/cast`}>
+              {movie && <Cast movieId={movieId} />}
+            </Route>
+            <Route path={`${path}/reviews`}>
+              {movie && <Reviews movieId={movieId} />}
+            </Route>
+          </Suspense>
         </>
       )}
     </>

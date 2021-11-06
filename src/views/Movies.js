@@ -3,7 +3,7 @@ import Searchbar from "../components/Searchbar/Searchbar";
 import s from "../views/Movies.module.scss";
 import Button from "../components/Button/Button";
 import * as moviesApi from "../services/moviesApi";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useLocation, useHistory } from "react-router-dom";
 import MoviesGalleryItem from "../components/MoviesGalleryItem/MoviesGalleryItem";
 import notFound from "../notFound.jpg";
 
@@ -15,10 +15,12 @@ const Status = {
 };
 
 export default function App() {
+  const location = useLocation();
+  const history = useHistory();
   const { url } = useRouteMatch();
-
   const [movies, setMovies] = useState([]);
-  const [movieName, setMovieName] = useState("");
+  const searchParams = new URLSearchParams(location.search).get("sortBy") ?? "";
+  const [movieName, setMovieName] = useState(searchParams ?? "");
   const [error, setError] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
   const [page, setPage] = useState(1);
@@ -41,7 +43,7 @@ export default function App() {
         setStatus(Status.RESOLVED);
         if (page !== 1) {
           window.scrollTo({
-            top: document.documentElement.scrollHeight,
+            top: document.documentElement.scrollHeight - 3200,
             behavior: "smooth",
           });
         }
@@ -60,6 +62,7 @@ export default function App() {
     setMovieName(movieName);
     setMovies([]);
     setPage(1);
+    history.push({ ...location, search: `sortBy=${movieName}` });
   };
 
   return (
@@ -69,7 +72,13 @@ export default function App() {
         <ul className={s.gallery}>
           {movies.map((movie, index) => (
             <li key={index} className={s.listItem}>
-              <Link to={`${url}/${movie.id}`} className={s.link}>
+              <Link
+                to={{
+                  pathname: `${url}/${movie.id}`,
+                  state: { from: location },
+                }}
+                className={s.link}
+              >
                 <MoviesGalleryItem
                   poster_path={
                     movie.poster_path
