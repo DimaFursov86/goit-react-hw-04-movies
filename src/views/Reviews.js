@@ -18,20 +18,23 @@ export default function Cast({ movieId }) {
 
   return (
     <>
-      {reviews && (
-        <div>
-          <ul className={s.gallery}>
-            {reviews.results.map(({ author, content }, index) => (
-              <li key={index} className={s.listItem}>
-                <div>
-                  <h2>Author: {author}</h2>
-                  <p>Review: {content}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {reviews &&
+        (reviews.results.length !== 0 ? (
+          <div>
+            <ul className={s.gallery}>
+              {reviews.results.map(({ author, content }, index) => (
+                <li key={index} className={s.listItem}>
+                  <div>
+                    <h2>Author: {author}</h2>
+                    <p>Review: {content}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <h1>No reviews for this movie</h1>
+        ))}
     </>
   );
 }
