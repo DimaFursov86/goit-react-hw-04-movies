@@ -33,10 +33,12 @@ export default function HomePage() {
         });
         setMovies((prevState) => [...prevState, ...movieArr]);
         setStatus(Status.RESOLVED);
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: "smooth",
-        });
+        if (page !== 1) {
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: "smooth",
+          });
+        }
       })
       .catch((error) => {
         setError(error);
