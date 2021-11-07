@@ -23,10 +23,14 @@
 }
 .movieDetailCont {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
   background-image: linear-gradient(to right, #e7564c38 35%, #09792b57 80%);
 }
 .detailsText {
-  margin-left: 80px;
+  margin-left: 50px;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
@@ -78,7 +82,7 @@
   font-weight: 600;
   line-height: 19px;
   letter-spacing: 0em;
-  width: 500px;
+  max-width: 500px;
   text-align: center;
   border: 1px solid rgba(0, 0, 0, 0.05);
   padding-right: 3px;
