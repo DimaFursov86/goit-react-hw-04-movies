@@ -89,14 +89,20 @@ export default function MovieDetailsPage() {
           <NavLink
             className={s.link}
             activeClassName={s.activeLink}
-            to={`${url}/cast`}
+            to={{
+              pathname: `${url}/cast`,
+              state: { from: location?.state?.from },
+            }}
           >
             Cast
           </NavLink>
           <NavLink
             className={s.link}
             activeClassName={s.activeLink}
-            to={`${url}/reviews`}
+            to={{
+              pathname: `${url}/reviews`,
+              state: { from: location?.state?.from },
+            }}
           >
             Reviews
           </NavLink>
