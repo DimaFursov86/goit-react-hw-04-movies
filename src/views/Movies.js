@@ -43,7 +43,7 @@ export default function App() {
         setStatus(Status.RESOLVED);
         if (page !== 1) {
           window.scrollTo({
-            top: document.documentElement.scrollHeight - 2000,
+            top: document.documentElement.scrollHeight - 4000,
             behavior: "smooth",
           });
         }
